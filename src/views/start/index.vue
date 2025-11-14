@@ -84,6 +84,8 @@ const YZUrl = ref('')
 /** 下载lite */
 async function downloadLite() {
   // alert("跳转下载页");
+  const newWindow = window.top.open()
+  newWindow.location.href = 'https://www.kingsware.cn/krpalite/Download'
   const baseUrl = 'https://download.krpalite.com:56780'
   const url = `${baseUrl}/config.json?t=${Date.now()}`
   console.log('url--->', url)
@@ -188,11 +190,13 @@ const downloadFile = async (url) => {
       <!-- <k-button main @click="init" :loading="loading">{{ btnText }}</k-button> -->
       <k-button main :loading="loading" @click="init">启动云智RPA</k-button>
       <div v-if="!isDownload" class="tip">
-        <div class="t1">感谢下载</div>
-        <div class="t2">
+        <div>1.您还没有安装"云智RPA"，正在为你自动下载安装包</div>
+        <div @click="downloadLite">
+          2. 如自动下载失败，请自行跳转至
+          <span>{{ YZUrl }}</span>
           手动下载
-          <div class="a" @click="downloadLite">{{ YZUrl }}</div>
         </div>
+        <div>3. 下载成功后，安装包需要手动启动.</div>
       </div>
     </div>
   </div>
@@ -202,29 +206,35 @@ const downloadFile = async (url) => {
 .yun-zhi {
   width: 100%;
   height: 100%;
+
   .box {
     display: flex;
-    align-items: center;
-    justify-content: center;
     flex-direction: column;
     gap: 15px;
+    align-items: center;
+    justify-content: center;
+
     width: 800px;
-    height: 200px;
+    height: 250px;
+
     .k-button {
       width: 160px;
       height: 40px;
       font-size: 18px;
     }
+
     .tip {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      padding: 0 60px;
+
       color: #999;
-      .t1 {
-        // font-size: 28px;
-      }
-      .t2 {
-        // font-size: 18px;
-        .a {
-          color: blue;
-        }
+
+      span {
+        cursor: pointer;
+        color: blue;
       }
     }
   }
