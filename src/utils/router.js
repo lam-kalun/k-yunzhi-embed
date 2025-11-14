@@ -1,5 +1,5 @@
-import { getSessionValue, getToken, initGlobalVariable, isInset, setSessionValue } from '@ksware/micro-lib-web-temp'
-import { createMemoryHistory, createRouter } from 'vue-router'
+import { getSessionValue, initGlobalVariable, isInset, setSessionValue } from '@ksware/micro-lib-web-temp'
+import { createRouter, createWebHashHistory } from 'vue-router'
 
 export const routeList = [
   {
@@ -21,6 +21,10 @@ export const routeList = [
     name: '启动',
     // 单个路由组件，即，要显示的网页内容
     component: () => import('@/views/start/index.vue'),
+  },
+  {
+    path: '/',
+    redirect: '/start',
   },
   // 模版页面,用户管理页面
   // {
@@ -77,7 +81,7 @@ routeList.forEach((item) => {
 })
 
 const router = createRouter({
-  history: createMemoryHistory(),
+  history: createWebHashHistory(),
   routes: routeList,
 })
 

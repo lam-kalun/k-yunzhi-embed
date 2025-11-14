@@ -59,7 +59,6 @@ function pollStartLite() {
       if (elapsedTime >= maxTime && !hasBlurred.value) {
         clearInterval(timer)
         reject(new Error('轮询超时：超过时间未返回结果'))
-        isDownload.value = false
         loading.value = false
         KMessage.error('启动失败，以为您自动下载')
         hasBlurred.value = false
@@ -84,8 +83,6 @@ const YZUrl = ref('')
 /** 下载lite */
 async function downloadLite() {
   // alert("跳转下载页");
-  const newWindow = window.top.open()
-  newWindow.location.href = 'https://www.kingsware.cn/krpalite/Download'
   const baseUrl = 'https://download.krpalite.com:56780'
   const url = `${baseUrl}/config.json?t=${Date.now()}`
   console.log('url--->', url)
@@ -99,6 +96,10 @@ async function downloadLite() {
     YZUrl.value = fullPath
     downloadFile(fullPath)
   }
+  const newWindow = window.top.open()
+  if (newWindow) {
+    newWindow.location.href = 'https://www.kingsware.cn/krpalite/Download'
+  }
 }
 async function init() {
   if (isDownload.value) {
@@ -107,10 +108,15 @@ async function init() {
     downloadLite()
   }
 }
+function extractAllNumbers(str) {
+  const matches = str.match(/\d+/g)
+  return matches ? matches.map(Number) : []
+}
 
+// 定义一个函数来比较两个版本号
 function compareVersions(v1, v2) {
-  const parts1 = v1.split('.').map(Number)
-  const parts2 = v2.split('.').map(Number)
+  const parts1 = extractAllNumbers(v1)
+  const parts2 = extractAllNumbers(v2)
 
   const longestLength = Math.max(parts1.length, parts2.length)
 
@@ -124,6 +130,7 @@ function compareVersions(v1, v2) {
 
   return 0
 }
+
 /**
  * @param items 传入对象数组
  * @param key 比较的版本key值
