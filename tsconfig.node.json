@@ -1,0 +1,12 @@
+{
+  "extends": ["@tsconfig/node18/tsconfig.json", "./tsconfig.base.json"],
+  "include": ["*.js", "*.ts", "internal"],
+  "compilerOptions": {
+    "noEmit": true,
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
+
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "types": ["node"]
+  }
+}

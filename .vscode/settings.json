@@ -1,0 +1,18 @@
+{
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "tsconfig.json": "tsconfig.*.json, env.d.ts",
+    "package.json": "package-lock.json, eslint*, cspell*, stylelint*, .stylelint*, prettier*, .prettier*, postcss*, .editorconfig"
+  },
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "eslint.enable": true,
+  "stylelint.enable": true,
+  "stylelint.validate": ["css", "scss", "vue"],
+  "prettier.enable": true,
+  "prettier.requireConfig": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit"
+  },
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+}
